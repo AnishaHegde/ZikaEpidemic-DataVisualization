@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HealthMap_Zika</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Tilling Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/iconeffects.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="css/normalize.css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<!-- //js -->
+	<!-- fonts -->
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- //fonts -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+</head>
+
+<body>
+	<!-- banner -->
+	<div class="banner">
+
+		<div class="container">
+			<div class="header-nav">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header logo">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1>
+								<a class="navbar-brand" href="/"><span>健</span><i>康</i><span>地</span><i>图</i></a>
+							</h1>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav class="cl-effect-1">
+							<ul class="nav navbar-nav ">
+								<li><a class="hvr-overline-from-left button2 active" href="/">家</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/#about">关于</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/register">寄存器</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/login">登录</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/#contact">联系</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!-- /navbar-collapse -->
+				</nav>
+			</div>
+			<div class="banner-info text-center">
+				<script src="js/responsiveslides.min.js"></script>
+				<script>
+					// You can also use "$(window).load(function() {"
+					$(function() {
+						// Slideshow 4
+						$("#slider3").responsiveSlides({
+							auto: true,
+							pager: false,
+							nav: false,
+							speed: 500,
+							namespace: "callbacks",
+							before: function() {
+								$('.events').append("<li>before event fired.</li>");
+							},
+							after: function() {
+								$('.events').append("<li>after event fired.</li>");
+							}
+						});
+					});
+				</script>
+				<div id="top" class="callbacks_container">
+					<ul class="rslides" id="slider3">
+						<li>
+							<div class="banner-text">
+								<h4>齐卡 日卡 健康数据可视化</h4>
+								<p>跟踪和审核疾病的发展是公共卫生最重要的任务之一.</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-text">
+								<h4>我们展示互动地图来分析 齐卡 病毒分布</h4>
+								<p>现代数据可视化工具和技术以及交互式地图使得决策者和现场团队更容易获得复杂的流行数据.</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-text">
+								<h4>我们根据用户的位置向注册用户发出警报</h4>
+								<p>这种数据的映射可以帮助制定相反的行动计划.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<a class="scroll" href="#banner-bottom"><img src="images/down.png">
+				</a>
+			</div>
+		</div>
+
+	</div>
+	<!-- //banner -->
+	<!-- welcome -->
+	<div id="banner-bottom" class="welcome">
+		<div class="container">
+			<h3>欢迎来到健康地图</h3>
+			<p>我们使用交互式地图和图表为您提供Zika病毒的大小和广度的可视化.</p>
+			<div class="seed-grid">
+				<div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon1"></a>
+						<h4>分析</h4>
+					</div>
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon2"></a>
+						<h4>地图</h4>
+					</div>
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon3"></a>
+						<h4>提醒</h4>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- //welcome -->
+
+	<!-- where -->
+	<div class="where" id="about">
+		<div class="container">
+			<div class="col-md-4 where-left"></div>
+			<div class="col-md-8 where-right">
+				<div class="wel-left">
+					<div class="welcome-info wel-grid">
+						<figure class="icon">
+							<span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+						</figure>
+						<ul>
+
+							<li><a href="#"><span class="glyphicon glyphicon-globe"></span>3检 地球 </a>
+							</li>
+							<li><a href="#"><span class="glyphicon glyphicon-dashboard"></span>仪表板 </a>
+							</li>
+							<li><a href="#"><span class="glyphicon glyphicon-map-marker"></span>实时位置</a>
+							</li>
+							<li><a href="#"><span class="glyphicon glyphicon-bell"></span>通知</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="wel-right">
+					<div class="content-item">
+						<div class="overlay"></div>
+						<div class="corner-overlay-content">信息</div>
+						<div class="overlay-content">
+							<h4>描述</h4>
+							<p>齐卡主要通过被感染的蚊子传播。 防止齐卡的最好方法是防止蚊虫叮咬。 返回的感染了寨卡的旅客可以通过蚊子叮咬传播病毒。</p>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //where -->
+
+	<!-- foo-top -->
+	<div class="foo-top">
+		<div class="container">
+			<h3 class="tittle">我们的产品</h3>
+			<div class="col-md-6 events-right">
+				<!-- <img class="img-responsive" src="images/beet.jpg" alt="" /> -->
+				<div class="events-right-gds">
+					<div class="services-bottom-grd-left">
+
+						<div class="time-service">
+							<p>01</p>
+						</div>
+					</div>
+					<div class="services-bottom-grd-right">
+						<h4>使用交互式地图的疾病可视化</h4>
+						<p>使用制图技术评估疾病的空间分布的知识状态. </p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="col-md-6 events-right">
+				<!-- <div class="events-right-gds">
+					<div class="services-bottom-grd-left">
+
+						<div class="time-service">
+							<p>01</p>
+						</div>
+					</div>
+					<div class="services-bottom-grd-right">
+						<h4>Visualizations of diseases using interactive maps</h4>
+						<p>Evaluate the state of knowledge of the spatial distribution of diseases using the art of cartography. 
+						</p>
+					</div>
+					<div class="clearfix"></div>
+				</div> -->
+				<div class="events-right-gds">
+					<div class="services-bottom-grd-left">
+						<div class="time-service">
+							<p>02</p>
+						</div>
+					</div>
+					<div class="services-bottom-grd-right">
+						<h4>提供预防措施</h4>
+						<p>行动可以包括：在前往受影响地区之前通知个人接种疫苗，以便在国家一级规划干预策略. </p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- //foo-top -->
+	<!-- footer -->
+	<div class="footer" id="contact">
+		<div class="container">
+			<h3>联系</h3>
+			<div class="col-md-3 footer-left">
+				<h2>信息</h2>
+				<p>请给我们留言以获取更多信息</p>
+			</div>
+			<div class="col-md-6 footer-middle">
+				<form action="#" method="post">
+					<input type="text" value="名称" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '名称';}" required="">
+					<input type="text" value="电子邮件" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电子邮件';}" required="">
+					<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '信息...';}" required="">信息...</textarea>
+					<input type="submit" value="发送">
+				</form>
+			</div>
+			<div class="col-md-3 footer-right">
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>+3402 890 679</li>
+							<li>+5356 890 679</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>一个华盛顿广场，圣荷西，</li>
+							<li>C加利福尼亚 95192</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li><a href="mailto:info@example.com">信息@例.com</a>
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="footer-bot">
+			<ul>
+				<li class="fb1"><a href="https://www.facebook.com/" target="_blank"></a></li>				
+				<li class="fb4" ><a href="https://twitter.com/" target="_blank"></a></li>
+			</ul>
+		</div>
+			<p class="copy-right">&copy; 2016 Team Valak.</p>
+		</div>
+	</div>
+	<!-- //footer -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- smooth scrolling -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear' 
+			};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+		});
+	</script>
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span>
+	</a>
+	<!-- //smooth scrolling -->
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+[
+	{
+		"code": "AR",
+		"value": 21826,
+		"name": "Argentina"
+	},
+	{
+		"code": "BR",
+		"value": 2041414,
+		"name": "Brazil"
+	},
+	{
+		"code": "CG",
+		"value": 149672,
+		"name": "Congo Republic"
+	},
+	{
+		"code": "CO",
+		"value": 1536222,
+		"name": "Colombia"
+	},
+	{
+		"code": "DO",
+		"value": 94983,
+		"name": "Dominican Republic"
+	},
+	{
+		"code": "EC",
+		"value": 11971,
+		"name": "Ecuador"
+	},
+	{
+		"code": "SV",
+		"value": 354031,
+		"name": "El Salvador"
+	},
+	{
+		"code": "GT",
+		"value": 10282,
+		"name": "Guatemala"
+	},
+	{
+		"code": "HT",
+		"value": 1066,
+		"name": "Haiti"
+	},
+	{
+		"code": "MX",
+		"value": 5330,
+		"name": "Mexico"
+	},
+	{
+		"code": "NI",
+		"value": 5090,
+		"name": "Nicaragua"
+	},
+	{
+		"code": "NG",
+		"value": 337035,
+		"name": "Nigeria"
+	},
+	{
+		"code": "PA",
+		"value": 780,
+		"name": "Panama"
+	},
+	{
+		"code": "PR",
+		"value": 184389,
+		"name": "Puerto Rico"
+	},
+	{
+		"code": "ZA",
+		"value": 366093,
+		"name": "South Africa"
+	},
+	{
+		"code": "SN",
+		"value": 16153,
+		"name": "Senegal"
+	},
+	{
+		"code": "US",
+		"value": 20917,
+		"name": "United States"
+	},
+	{
+		"code": "VI",
+		"value": 13211,
+		"name": "United States Virgin Islands"
+	}
+]

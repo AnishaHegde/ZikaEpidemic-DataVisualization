@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HealthMap_Zika</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Tilling Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+	<script src="https://www.amcharts.com/lib/3/themes/black.js"></script>
+	<!-- <script src="https://www.amcharts.com/lib/3/themes/light.js"></script> -->
+
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<!-- //js -->
+	<!-- fonts -->
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- //fonts -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  	<script type="text/javascript" src="angular/tweets.js"></script>
+
+	<!-- start bar chart-->
+	<script>
+	  var monthArray = []; 
+
+	  $(document).ready(function() {
+	    $.ajax({
+	      url :"json/cdc_zika.csv",
+	      dataType: "text",
+	      success : function (data) {
+	                    //$(".text").html(data);
+	                    var data = csvJSON(data);
+	                    //var data1 = csvJSON1(data);
+	                  //console.log(data);
+	                }
+	              });
+	  }); 
+
+	  function csvJSON(csv){
+
+	    var arr=[];
+	    var monthMap = new Map();
+	      //var monthArray = [];  
+
+	      for(i=0; i<12; i++)
+	        monthMap.set(i,0);  
+
+	      var lines = csv.split("\n");
+
+	      var result = [];
+
+	      var headers=lines[0].split(",");
+
+	      for(var i=1;i<lines.length;i++){
+
+	       var obj = {};
+	       var currentline=lines[i].split(",");
+	       currentline[2] = currentline[2].replace(/(\r\n|\n|\r)/gm,"");
+	       obj = currentline;
+
+	       result.push(obj); 
+	     }// end for
+
+	     for(var i=0;i<result.length;i++){
+
+	      var date = new Date(result[i][0]);
+	      d=date.getMonth();
+
+	      if(result[i][2]!="NA" && result[i][2]!="NaN"){
+	       if(monthMap.has(d)){
+	        monthMap.set(d,monthMap.get(d)+parseInt(result[i][2]));             
+	      }
+	        }//end if
+	      }//end for
+
+	      var i = 0;
+	      monthMap.forEach(function (item, key, mapObj) {
+	        //monthArray[i]=item;
+	        //i++;
+
+	        //if(typeof(item) == NaN)
+	        if(isNaN(item)){
+	          //localStorage.setItem(key,0);
+	          monthArray[i]=0;
+	          i++;
+	        }
+	        else{
+	          //localStorage.setItem(key,item);
+	          monthArray[i]=item;
+	          i++;
+	        }
+	      });// end mapObj
+
+	      localStorage.setItem('monthData',monthArray);
+	      amcharts();
+	      amcharts1();
+	    }//end function csvJSON
+
+	    function amcharts() {
+	     var chart = AmCharts.makeChart("chartdiv", {
+	      "theme": "light",
+	      "type": "serial",
+	      "startDuration": 2,
+	      "dataProvider": [{
+	        "Month": "Jan",
+	        "Cases": monthArray[0],
+	        "color": "#FF0F00"
+	      }, {
+	        "Month": "Feb",
+	        "Cases": monthArray[1],
+	        "color": "#FF6600"
+	      }, {
+	        "Month": "March",
+	        "Cases": monthArray[2],
+	        "color": "#FF9E01"
+	      }, {
+	        "Month": "Apr",
+	        "Cases": monthArray[3],
+	        "color": "#FCD202"
+	      }, {
+	        "Month": "May",
+	        "Cases": monthArray[4],
+	        "color": "#F8FF01"
+	      }, {
+	        "Month": "Jun",
+	        "Cases": monthArray[5],
+	        "color": "#B0DE09"
+	      }, {
+	        "Month": "Jul",
+	        "Cases": monthArray[6],
+	        "color": "#04D215"
+	      }, {
+	        "Month": "Aug",
+	        "Cases": monthArray[7],
+	        "color": "#0D8ECF"
+	      }, {
+	        "Month": "Sep",
+	        "Cases": monthArray[8],
+	        "color": "#0D52D1"
+	      }, {
+	        "Month": "Oct",
+	        "Cases": monthArray[9],
+	        "color": "#2A0CD0"
+	      }, {
+	        "Month": "Nov",
+	        "Cases": monthArray[10],
+	        "color": "#8A0CCF"
+	      }, {
+	        "Month": "Dec",
+	        "Cases":monthArray[11],
+	        "color": "#CD0D74"
+	      }],
+	      "valueAxes": [{
+	        "position": "left",
+	        "axisAlpha":0,
+	        "gridAlpha":0
+	      }],
+	      "graphs": [{
+	        "balloonText": "[[category]]: <b>[[value]]</b>",
+	        "colorField": "color",
+	        "fillAlphas": 0.85,
+	        "lineAlpha": 0.1,
+	        "type": "column",
+	        "topRadius":1,
+	        "valueField": "Cases"
+	      }],
+	      "depth3D": 40,
+	      "angle": 30,
+	      "chartCursor": {
+	        "categoryBalloonEnabled": false,
+	        "cursorAlpha": 0,
+	        "zoomable": false
+	      },
+	      "categoryField": "Month",
+	      "categoryAxis": {
+	        "gridPosition": "start",
+	        "axisAlpha":0,
+	        "gridAlpha":0
+
+	      },
+	      "export": {
+	       "enabled": true
+	     }
+
+	   }, 0);
+	   }
+	</script>  
+	<!-- start bar chart-->
+
+	<!-- start line chart -->
+	<script>
+	function amcharts1() {
+		var chart = AmCharts.makeChart("chartdiv1", {
+			"type": "serial",
+			"theme": "black",
+			"marginRight": 40,
+			"marginLeft": 40,
+			"autoMarginOffset": 20,
+			"mouseWheelZoomEnabled": true,
+			"dataDateFormat": "YYYY-MM-DD",
+			"valueAxes": [{
+				"id": "v1",
+				"axisAlpha": 0,
+				"position": "left",
+				"ignoreAxisWidth": true
+			}],
+			"balloon": {
+				"borderThickness": 1,
+				"shadowAlpha": 0
+			},
+			"graphs": [{
+				"id": "g1",
+				"balloon": {
+					"drop": true,
+					"adjustBorderColor": false,
+					"color": "#ffffff"
+				},
+				"bullet": "round",
+				"bulletBorderAlpha": 1,
+				"bulletColor": "#FFFFFF",
+				"bulletSize": 5,
+				"hideBulletsCount": 50,
+				"lineThickness": 2,
+				"title": "red line",
+				"useLineColorForBulletBorder": true,
+				"valueField": "value",
+				"balloonText": "<span style='font-size:18px;'>[[value]] Cases</span>"
+			}],
+			"chartScrollbar": {
+				"graph": "g1",
+				"oppositeAxis": false,
+				"offset": 30,
+				"scrollbarHeight": 80,
+				"backgroundAlpha": 0,
+				"selectedBackgroundAlpha": 0.1,
+				"selectedBackgroundColor": "#888888",
+				"graphFillAlpha": 0,
+				"graphLineAlpha": 0.5,
+				"selectedGraphFillAlpha": 0,
+				"selectedGraphLineAlpha": 1,
+				"autoGridCount": true,
+				"color": "#AAAAAA"
+			},
+			"chartCursor": {
+				"pan": true,
+				"valueLineEnabled": true,
+				"valueLineBalloonEnabled": true,
+				"cursorAlpha": 1,
+				"cursorColor": "#258cbb",
+				"limitToGraph": "g1",
+				"valueLineAlpha": 0.2,
+				"valueZoomable": true
+			},
+			"valueScrollbar": {
+				"oppositeAxis": false,
+				"offset": 50,
+				"scrollbarHeight": 10
+			},
+			"categoryField": "date",
+			"categoryAxis": {
+				"parseDates": true,
+				"dashLength": 1,
+				"minorGridEnabled": true
+			},
+			"export": {
+				"enabled": true
+			},
+			"dataProvider": [{
+				"date": "2016-07-27",
+				"value": 10
+			}, {
+				"date": "2016-07-28",
+				"value": 15
+			}, {
+				"date": "2016-07-29",
+				"value": 17
+			}, {
+				"date": "2016-07-30",
+				"value": 9
+			}, {
+				"date": "2016-07-31",
+				"value": 19
+			}, {
+				"date": "2016-08-01",
+				"value": 17
+			}, {
+				"date": "2016-08-02",
+				"value": 19
+			}, {
+				"date": "2016-08-03",
+				"value": 24
+			}, {
+				"date": "2016-08-04",
+				"value": 26
+			}, {
+				"date": "2016-08-05",
+				"value": 12
+			}, {
+				"date": "2016-08-06",
+				"value": 20
+			}, {
+				"date": "2016-08-07",
+				"value": 23
+			}, {
+				"date": "2016-08-08",
+				"value": 29
+			}, {
+				"date": "2016-08-09",
+				"value": 13
+			}, {
+				"date": "2016-08-10",
+				"value": 21
+			}, {
+				"date": "2016-08-11",
+				"value": 23
+			}, {
+				"date": "2016-08-12",
+				"value": 37
+			}, {
+				"date": "2016-08-13",
+				"value": 28
+			}, {
+				"date": "2016-08-14",
+				"value": 14
+			}, {
+				"date": "2016-08-15",
+				"value": 12
+			}, {
+				"date": "2016-08-16",
+				"value": 28
+			}, {
+				"date": "2016-08-17",
+				"value": 39
+			}, {
+				"date": "2016-08-18",
+				"value": 24
+			}, {
+				"date": "2016-08-19",
+				"value": 25
+			}, {
+				"date": "2016-08-20",
+				"value": 32
+			}, {
+				"date": "2016-08-21",
+				"value": 18
+			}, {
+				"date": "2016-08-22",
+				"value": 29
+			}, {
+				"date": "2016-08-23",
+				"value": 4
+			}, {
+				"date": "2016-08-24",
+				"value": 5
+			}, {
+				"date": "2016-08-25",
+				"value": 6
+			}, {
+				"date": "2016-08-26",
+				"value": 1
+			}, {
+				"date": "2016-08-27",
+				"value": 16
+			}, {
+				"date": "2016-08-28",
+				"value": 28
+			}, {
+				"date": "2016-08-29",
+				"value": 2
+			}, {
+				"date": "2016-08-30",
+				"value": 19
+			}, {
+				"date": "2016-08-31",
+				"value": 23
+			}, {
+				"date": "2016-09-01",
+				"value": 22
+			}, {
+				"date": "2016-09-02",
+				"value": 45
+			}, {
+				"date": "2016-09-03",
+				"value": 21
+			}, {
+				"date": "2016-09-04",
+				"value": 45
+			}, {
+				"date": "2016-09-05",
+				"value": 32
+			}, {
+				"date": "2016-09-06",
+				"value": 56
+			}, {
+				"date": "2016-09-07",
+				"value": 51
+			}, {
+				"date": "2016-09-08",
+				"value": 53
+			}, {
+				"date": "2016-09-09",
+				"value": 60
+			}, {
+				"date": "2016-09-10",
+				"value": 29
+			}, {
+				"date": "2016-09-11",
+				"value": 44
+			}, {
+				"date": "2016-09-12",
+				"value": 39
+			}, {
+				"date": "2016-09-13",
+				"value": 14
+			}, {
+				"date": "2016-09-14",
+				"value": 17
+			}, {
+				"date": "2016-09-15",
+				"value": 32
+			}, {
+				"date": "2016-09-16",
+				"value": 45
+			}, {
+				"date": "2016-09-17",
+				"value": 56
+			}, {
+				"date": "2016-09-18",
+				"value": 67
+			}, {
+				"date": "2016-09-19",
+				"value": 65
+			}, {
+				"date": "2016-09-20",
+				"value": 49
+			}, {
+				"date": "2016-09-21",
+				"value": 68
+			}, {
+				"date": "2016-09-22",
+				"value": 77
+			}, {
+				"date": "2016-09-23",
+				"value": 21
+			}, {
+				"date": "2016-09-24",
+				"value": 49
+			}, {
+				"date": "2016-09-25",
+				"value": 57
+			}, {
+				"date": "2016-09-26",
+				"value": 5
+			}, {
+				"date": "2016-09-27",
+				"value": 11
+			}, {
+				"date": "2016-09-28",
+				"value": 26
+			}, {
+				"date": "2016-09-29",
+				"value": 49
+			}, {
+				"date": "2016-09-30",
+				"value": 74
+			}, {
+				"date": "2016-10-01",
+				"value": 64
+			}, {
+				"date": "2016-10-02",
+				"value": 68
+			}, {
+				"date": "2016-10-03",
+				"value": 26
+			}, {
+				"date": "2016-10-04",
+				"value": 42
+			}, {
+				"date": "2016-10-05",
+				"value": 51
+			}, {
+				"date": "2016-10-06",
+				"value": 28
+			}, {
+				"date": "2016-10-07",
+				"value": 31
+			}, {
+				"date": "2016-10-08",
+				"value": 58
+			}, {
+				"date": "2016-10-09",
+				"value": 25
+			}, {
+				"date": "2016-10-10",
+				"value": 46
+			}, {
+				"date": "2016-10-11",
+				"value": 23
+			}, {
+				"date": "2016-10-12",
+				"value": 21
+			}, {
+				"date": "2016-10-13",
+				"value": 20
+			}, {
+				"date": "2016-10-14",
+				"value": 44
+			}, {
+				"date": "2016-10-15",
+				"value": 58
+			}, {
+				"date": "2016-10-16",
+				"value": 37
+			}, {
+				"date": "2016-10-17",
+				"value": 54
+			}, {
+				"date": "2016-10-18",
+				"value": 29
+			}, {
+				"date": "2016-10-19",
+				"value": 33
+			}, {
+				"date": "2016-10-20",
+				"value": 47
+			}, {
+				"date": "2016-10-21",
+				"value": 40
+			}, {
+				"date": "2016-10-22",
+				"value": 31
+			}, {
+				"date": "2016-10-23",
+				"value": 79
+			}, {
+				"date": "2016-10-24",
+				"value": 87
+			}, {
+				"date": "2016-10-25",
+				"value": 82
+			}, {
+				"date": "2016-10-26",
+				"value": 87
+			}, {
+				"date": "2016-10-27",
+				"value": 15
+			}, {
+				"date": "2016-10-28",
+				"value": 30
+			}, {
+				"date": "2016-10-29",
+				"value": 32
+			}, {
+				"date": "2016-10-30",
+				"value": 40
+			}, {
+				"date": "2016-10-31",
+				"value": 52
+			}, {
+				"date": "2016-11-01",
+				"value": 53
+			}, {
+				"date": "2016-11-02",
+				"value": 67
+			}, {
+				"date": "2016-11-03",
+				"value": 58
+			}, {
+				"date": "2016-11-04",
+				"value": 75
+			}, {
+				"date": "2016-11-05",
+				"value": 81
+			}, {
+				"date": "2016-11-06",
+				"value": 95
+			}, {
+				"date": "2016-11-07",
+				"value": 34
+			}, {
+				"date": "2016-11-08",
+				"value": 51
+			}, {
+				"date": "2016-11-09",
+				"value": 26
+			}, {
+				"date": "2016-11-10",
+				"value": 57
+			}, {
+				"date": "2016-11-11",
+				"value": 61
+			}, {
+				"date": "2016-11-12",
+				"value": 73
+			}, {
+				"date": "2016-11-13",
+				"value": 60
+			}, {
+				"date": "2016-11-14",
+				"value": 31
+			}, {
+				"date": "2016-11-15",
+				"value": 35
+			}, {
+				"date": "2016-11-16",
+				"value": 86
+			}, {
+				"date": "2016-11-17",
+				"value": 26
+			}, {
+				"date": "2016-11-18",
+				"value": 70
+			}, {
+				"date": "2016-11-19",
+				"value": 77
+			}, {
+				"date": "2016-11-20",
+				"value": 93
+			}, {
+				"date": "2016-11-21",
+				"value": 65
+			}, {
+				"date": "2016-11-22",
+				"value": 64
+			}, {
+				"date": "2016-11-23",
+				"value": 32
+			}, {
+				"date": "2016-11-24",
+				"value": 33
+			}, {
+				"date": "2016-11-25",
+				"value": 21
+			}, {
+				"date": "2016-11-26",
+				"value": 55
+			}, {
+				"date": "2016-11-27",
+				"value": 59
+			}, {
+				"date": "2016-11-28",
+				"value": 80
+			}, {
+				"date": "2016-11-29",
+				"value": 73
+			}, {
+				"date": "2016-11-30",
+				"value": 31
+			}]
+		});
+
+		chart.addListener("rendered", zoomChart1);
+
+		zoomChart1(chart);
+
+	}
+
+	function zoomChart1(chart) {
+		chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+	}
+	</script>
+	<!-- start line chart -->
+
+	
+</head>
+
+<body>
+	<!-- banner -->
+	<div class="banner page-head">
+		<div class="container">
+			<div class="header-nav">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header logo">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1>
+							<a class="navbar-brand" href="/"><span>H</span><i>EALTH</i><span>M</span><i>AP</i></a>
+						</h1>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav class="cl-effect-1">
+							<ul class="nav navbar-nav ">
+								<li><a class="hvr-overline-from-left button2 active" href="/home">Statistics</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/twomap">2D Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/heatmap">Heat Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/threemap">3D Globe</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/location">Location</a>
+								</li>
+								<!-- <li><a class="hvr-overline-from-left button2" ng-click="getTweets()">Tweets</a>
+								</li> -->
+								<li><a class="hvr-overline-from-left button2" href="/mapUsa">Usa Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/home#contact">Contact</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!-- /navbar-collapse -->
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- about -->
+	<div class="login-page">
+		<div class="container">
+			<h3 class="tittle">Zika cases count per month for the year 2016</h3>
+			<div class="col-md-12">
+				<!-- <div class="about_img">
+				
+				</div> -->
+				<div id="chartdiv"></div>
+				<br>
+				<div id="chartdiv1"></div>
+				<br>
+				<!-- <div id="series_chart_div" style="width: 100%; height: 1000px;"></div> -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div class="footer" id="contact">
+		<div class="container">
+			<h3>Contact</h3>
+			<div class="col-md-3 footer-left">
+				<h2>Information</h2>
+				<p>Send us a message for further information</p>
+			</div>
+			<div class="col-md-6 footer-middle">
+				<form action="#" method="post">
+					<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+					<input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+					<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+					<input type="submit" value="Send">
+				</form>
+			</div>
+			<div class="col-md-3 footer-right">
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>+3402 890 679</li>
+							<li>+5356 890 679</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>1 Washington Sq, San Jose,</li>
+							<li>CA 95192</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li><a href="mailto:info@example.com">info@example.com</a>
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="footer-bot">
+			<ul>
+				<li class="fb1"><a href="https://www.facebook.com/" target="_blank"></a></li>				
+				<li class="fb4" ><a href="https://twitter.com/" target="_blank"></a></li>
+			</ul>
+		</div>
+			<p class="copy-right">&copy; 2016 Team Valak.</p>
+		</div>
+	</div>
+	<!-- //footer -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- smooth scrolling -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+		});
+	</script>
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span>
+	</a>
+	<!-- //smooth scrolling -->
+
+</body>
+
+</html>

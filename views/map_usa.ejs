@@ -1,0 +1,93 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+<style>
+#container {
+    height:900px; 
+    width: auto; 
+    margin: 0 auto; 
+}
+
+</style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+$(function () {
+	$.ajax({url: "json/zika_usa.json", 
+		success: function(result){
+		customFunction(result);
+	}});
+    
+		
+function customFunction(data){
+		console.log(data);
+
+        // Instantiate the map
+        Highcharts.mapChart('container', {
+
+            chart: {
+                borderWidth: 1
+            },
+
+            title: {
+                text: 'Number of Zika cases per state in USA'
+            },
+
+            legend: {
+                layout: 'horizontal',
+                borderWidth: 0,
+                backgroundColor: 'rgba(255,255,255,0.8)',
+               floating: true,
+               verticalAlign: 'top',
+                y: 25
+            },
+
+            mapNavigation: {
+                enabled: true
+            },
+
+            colorAxis: {
+                min: 1,
+                type: 'logarithmic',
+             //   minColor: '#0cf47c',
+              //  maxColor: '#022814',
+                stops: [
+                    [0, '#0cf47c'],
+                    [0.2, '#09b75d'],
+                    [0.4, '#077c40'],
+                    [0.6, '#045129'],
+                    [0.8, '#022814'],
+                    [1.0, '#000501']
+                ]
+            },
+
+            series: [{
+                animation: {
+                    duration: 1000
+                },
+                data: data,
+                mapData: Highcharts.maps['countries/us/us-all'],
+                joinBy: ['postal-code', 'code'],
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    format: '{point.code}'
+                },
+                name: 'Number of Zika Cases',
+                tooltip: {
+                    pointFormat: '{point.code}: {point.value}'
+                }
+            }]
+        });//container
+  //  });
+  }
+});
+
+
+</script>
+</body>
+</html>

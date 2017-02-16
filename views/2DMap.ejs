@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HealthMap_Zika</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Tilling Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+	<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+	<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+	<!-- Flag sprites service provided by Martijn Lafeber, https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->
+	<link rel="stylesheet" type="text/css" href="https://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<!-- //js -->
+	<!-- fonts -->
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- //fonts -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- start-smoth-scrolling -->
+
+	<!-- start static 2D Map-->
+	<script>
+		$(function () {
+
+		    //$.getJSON('json/zika.json&callback=?', function (data) {});
+			
+			$.ajax({url: "json/zika.json", 
+			success: function(result){
+				customFunction(result);
+			}});
+			
+			function customFunction(data) {
+		        // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
+		        $.each(data, function () {
+		          //  this.flag = this.code.replace('UK', 'GB').toLowerCase();
+		        });
+
+		        // Initiate the chart
+		        Highcharts.mapChart('container1', {
+		        	chart: {
+	                    borderWidth: 1
+	                },
+
+		            title: {
+		                text: ''
+		            },
+
+		            legend: {
+		                title: {
+		                    text: 'Zika cases per country',
+		                    style: {
+		                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+		                    }
+		                }
+		            },
+
+		            mapNavigation: {
+		                enabled: true,
+		                buttonOptions: {
+		                    verticalAlign: 'bottom'
+		                }
+		            },
+
+		            tooltip: {
+		                backgroundColor: 'none',
+		                borderWidth: 0,
+		                shadow: false,
+		                useHTML: true,
+		                padding: 0,
+		                pointFormat: '<span class="f32"><span class="flag {point.flag}"></span></span>' +
+		                    ' {point.name}: <b>{point.value}</b>',
+		                positioner: function () {
+		                    return { x: 0, y: 250 };
+		                }
+		            },
+
+		            colorAxis: {
+		                min: 1000,
+		                max: 150000,
+		                type: 'logarithmic'
+		            },
+
+		            series: [{
+		                data: data,
+		                mapData: Highcharts.maps['custom/world'],
+		                joinBy: ['iso-a2', 'code'],
+		                name: 'Zika cases',
+		                states: {
+		                    hover: {
+		                        color: '#a4edba'
+		                    }
+		                }
+		            }]
+		        });
+		    };
+		});
+
+	</script>
+	<!-- start static 2D Map -->
+
+	<!-- start interactive 2D Map-->
+	<script>
+
+	   $(function () {
+	    
+	    $.ajax({url: "json/zika.json", 
+	        success: function(result){
+	            customFunction(result);
+	        }});
+
+	        // custom handler when the spreadsheet is parsed
+	        function customFunction(data) {
+
+	            // Initiate the chart
+	            Highcharts.mapChart('container2', {
+	                chart: {
+	                    borderWidth: 1
+	                },
+
+	                colors: ['rgba(19,64,117,0.05)', 'rgba(19,64,117,0.2)', 'rgba(19,64,117,0.4)',
+	                'rgba(19,64,117,0.5)', 'rgba(19,64,117,0.6)', 'rgba(19,64,117,0.8)', 'rgba(19,64,117,1)'],
+
+	                title: {
+	                    text: ''
+	                },
+
+	                mapNavigation: {
+	                    enabled: true
+	                },
+
+	                legend: {
+	                    title: {
+	                        text: 'Zika cases per country',
+	                        style: {
+	                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+	                        }
+	                    },
+	                    align: 'left',
+	                    verticalAlign: 'bottom',
+	                    floating: true,
+	                    layout: 'vertical',
+	                    valueDecimals: 0,
+	                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
+	                    symbolRadius: 0,
+	                    symbolHeight: 14
+	                },
+
+	                colorAxis: {
+					     dataClasses: [{    
+					         to: 1000,
+					         color: '#F1EEF6'
+					     	}, 
+					     	{
+					         from: 1000,
+					         to: 5000,
+					         color: '#D4B9DA'
+					         
+					         },
+					         {
+					         	from: 5000,
+					         to: 10000,
+					          color: '#C994C7'
+					         },
+					         {
+					         	from: 10000,
+					         to: 15000,
+					          color: '#DF65B0'
+					         },
+					         {
+					         	from: 15000,
+					         to: 20000,
+					          color: '#DD1C77'
+					         },
+					         {
+					         	from: 20000,
+					         to: 25000,
+					          color: '#980043'
+					         },
+					         {
+					         	from: 25000,
+					         to: 30000,
+					         color: '#F442D1'
+					         },
+					         {
+					         	from: 30000,
+					         	color: '#660a3E'
+					         	
+					         }
+					]
+					},
+
+	               series: [{
+	                data: data,
+	                mapData: Highcharts.maps['custom/world'],
+	                joinBy: ['iso-a2', 'code'],
+	                animation: true,
+	                name: 'Number of Zika Cases',
+	                states: {
+	                    hover: {
+	                        color: '#a4edba'
+	                    }
+	                },
+	                tooltip: {
+	                    valueSuffix: 'cases'
+	                }
+	            }]
+	        });
+	        }
+	    });
+	   
+	</script>
+	<!-- start interactive 2D Map-->
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  	<script type="text/javascript" src="angular/tweets.js"></script>
+
+</head>
+
+<body>
+	<!-- banner -->
+	<div class="banner page-head">
+		<div class="container">
+			<div class="header-nav">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header logo">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1>
+							<a class="navbar-brand" href="/"><span>H</span><i>EALTH</i><span>M</span><i>AP</i></a>
+						</h1>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav class="cl-effect-1">
+							<ul class="nav navbar-nav ">
+								<li><a class="hvr-overline-from-left button2" href="/home">Statistics</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2 active" href="/twomap">2D Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/heatmap">Heat Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/threemap">3D Globe</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/location">Location</a>
+								</li>
+								<!-- <li><a class="hvr-overline-from-left button2" ng-click="getTweets()">Tweets</a>
+								</li> -->
+								<li><a class="hvr-overline-from-left button2" href="/mapUsa">Usa Map</a>
+								</li>
+								<li><a class="hvr-overline-from-left button2" href="/twomap#contact">Contact</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!-- /navbar-collapse -->
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- about -->
+	<div class="login-page">
+		<div class="container">
+			<h3 class="tittle">Number of Zika Cases per Country</h3>
+			<div class="col-md-12">
+				<div id="container1"></div>
+				<br>
+				<div id="container2">
+				    <div class="loading">
+				        <i class="icon-spinner icon-spin icon-large"></i>				        
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div class="footer" id="contact">
+		<div class="container">
+			<h3>Contact</h3>
+			<div class="col-md-3 footer-left">
+				<h2>Information</h2>
+				<p>Send us a message for further information</p>
+			</div>
+			<div class="col-md-6 footer-middle">
+				<form action="#" method="post">
+					<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+					<input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+					<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+					<input type="submit" value="Send">
+				</form>
+			</div>
+			<div class="col-md-3 footer-right">
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>+3402 890 679</li>
+							<li>+5356 890 679</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li>1 Washington Sq, San Jose,</li>
+							<li>CA 95192</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="call">
+					<div class="col-xs-3 contact-grdl">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					</div>
+					<div class="col-xs-9 contact-grdr">
+						<ul>
+							<li><a href="mailto:info@example.com">info@example.com</a>
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="footer-bot">
+			<ul>
+				<li class="fb1"><a href="https://www.facebook.com/" target="_blank"></a></li>				
+				<li class="fb4" ><a href="https://twitter.com/" target="_blank"></a></li>
+			</ul>
+		</div>
+			<p class="copy-right">&copy; 2016 Team Valak.</p>
+		</div>
+	</div>
+	<!-- //footer -->
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- smooth scrolling -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+		});
+	</script>
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span>
+	</a>
+	<!-- //smooth scrolling -->
+
+</body>
+
+</html>
